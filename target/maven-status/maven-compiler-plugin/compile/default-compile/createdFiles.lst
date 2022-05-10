@@ -1,0 +1,6 @@
+module-info.class
+es\javimg\pilotosmotociclismo\App.class
+es\javimg\pilotosmotociclismo\SecondaryController.class
+es\javimg\pilotosmotociclismo\entities\Piloto.class
+es\javimg\pilotosmotociclismo\PrimaryController.class
+es\javimg\pilotosmotociclismo\entities\Equipo.class
