@@ -1,5 +1,6 @@
 package es.javimg.pilotosmotociclismo;
 
+import es.javimg.pilotosmotociclismo.entities.Piloto;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -37,15 +40,23 @@ public class App extends Application {
         scene = new Scene(loadFXML("primary"), 640, 480);
         stage.setScene(scene);
         stage.show();
+        
+        Piloto p = new Piloto(01, "Franco", "Morbidelli");
+        em.getTransaction().begin();
+        em.persist(p);
+        em.getTransaction().commit();
     }
+    
+    @Override
+    public void stop() throws Exception {
+        em.close();
+        try {
+            DriverManager.getConnection("jdbc:derby:BD_PilotosMotociclismo;shutdown=true");
+        } catch (SQLException ex) {  
+        }
+    }
+    
 
-    public void stop() throws Exception
-    
-    
-    
-    
-    
-    
     
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
