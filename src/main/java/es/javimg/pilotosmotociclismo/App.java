@@ -41,10 +41,13 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
         
-        Piloto p = new Piloto(01, "Franco", "Morbidelli");
+        Piloto p = new Piloto(01, "Marc", "Marquez");
+        p.setEstiloPilotaje('C');
         em.getTransaction().begin();
         em.persist(p);
         em.getTransaction().commit();
+        
+        Equipo e = new Equipo()
     }
     
     @Override
