@@ -1,6 +1,7 @@
 package es.javimg.pilotosmotociclismo;
 
 import es.javimg.pilotosmotociclismo.entities.Piloto;
+import es.javimg.pilotosmotociclismo.entities.Equipo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -41,13 +42,18 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
         
+        Equipo e = new Equipo(01, "Repsol Honda Team");
+        em.getTransaction().begin();
+        em.persist(e);
+        em.getTransaction().commit();
+        
         Piloto p = new Piloto(01, "Marc", "Marquez");
         p.setEstiloPilotaje('C');
+        p.setEquipo(e);
         em.getTransaction().begin();
         em.persist(p);
         em.getTransaction().commit();
-        
-        Equipo e = new Equipo()
+
     }
     
     @Override
