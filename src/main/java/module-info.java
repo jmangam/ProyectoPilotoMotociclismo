@@ -4,6 +4,7 @@ module es.javimg.pilotosmotociclismo {
     requires java.instrument;
     requires java.persistence;
     requires java.sql;
+    requires java.base;
 
     opens es.javimg.pilotosmotociclismo.entities;
     opens es.javimg.pilotosmotociclismo to javafx.fxml;
