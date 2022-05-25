@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -26,7 +27,21 @@
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#onActionButtonSuprimir" text="Suprimir" />
+            <Button mnemonicParsing="false" onAction="#onActionButtonSuprimir" text="Suprimir">
+               <HBox.margin>
+                  <Insets right="40.0" />
+               </HBox.margin></Button>
+            <TextField fx:id="textFieldBuscar">
+               <HBox.margin>
+                  <Insets right="40.0" />
+               </HBox.margin>
+            </TextField>
+            <Button fx:id="ButtonBuscar" mnemonicParsing="false" onAction="#onActionButtonBuscar" text="Buscar">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Button>
+            <CheckBox fx:id="checkCoincide" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Coincide" />
          </children>
          <BorderPane.margin>
             <Insets left="10.0" top="10.0" />
@@ -36,11 +51,11 @@
    <center>
       <TableView fx:id="tableViewPilotos" prefHeight="331.0" prefWidth="600.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="columnNombre" prefWidth="75.0" text="Nombre" />
-          <TableColumn fx:id="columnApellidos" prefWidth="75.0" text="Apellidos" />
-            <TableColumn fx:id="columnEstilo" prefWidth="102.0" text="Estilo Pilotaje" />
-            <TableColumn fx:id="columnEquipo" prefWidth="70.0" text="Equipo" />
-            <TableColumn fx:id="columnTitulos" prefWidth="157.0" text="Nº Titulos" />
+          <TableColumn fx:id="columnNombre" prefWidth="98.4000244140625" text="Nombre" />
+          <TableColumn fx:id="columnApellidos" prefWidth="134.4000244140625" text="Apellidos" />
+            <TableColumn fx:id="columnEstilo" prefWidth="87.20001220703125" text="Estilo Pilotaje" />
+            <TableColumn fx:id="columnEquipo" minWidth="3.199951171875" prefWidth="197.5999755859375" text="Equipo" />
+            <TableColumn fx:id="columnTitulos" prefWidth="80.00006103515625" text="Nº Titulos" />
         </columns>
          <BorderPane.margin>
             <Insets top="10.0" />

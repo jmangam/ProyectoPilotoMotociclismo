@@ -14,7 +14,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
@@ -43,6 +45,12 @@ public class PrimaryController implements Initializable {
     private TextField textFieldApellidos;
     @FXML
     private TextField textFieldTitulos;
+    @FXML
+    private TextField textFieldBuscar;
+    @FXML
+    private Button ButtonBuscar;
+    @FXML
+    private CheckBox checkCoincide;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -65,6 +73,7 @@ public class PrimaryController implements Initializable {
                     if (pilotoSeleccionado != null){
                         textFieldNombre.setText(pilotoSeleccionado.getNombre());
                         textFieldApellidos.setText(pilotoSeleccionado.getApellidos());
+                        textFieldTitulos.setText(String.valueOf(pilotoSeleccionado.getNumTitulos()));
                     }else {
                         textFieldNombre.setText("");
                         textFieldApellidos.setText("");
@@ -74,8 +83,8 @@ public class PrimaryController implements Initializable {
     }
     
     private void cargarTodosPiloto(){
-        Query queryEstadioFindAll = App.em.createNamedQuery("Piloto.findAll");
-        List<Piloto> listapiloto = queryEstadioFindAll.getResultList();
+        Query queryPilotoFindAll = App.em.createNamedQuery("Piloto.findAll");
+        List<Piloto> listapiloto = queryPilotoFindAll.getResultList();
         System.out.print("a" + listapiloto.size());
         tableViewPilotos.setItems(FXCollections.observableArrayList(listapiloto));
     }
@@ -144,6 +153,44 @@ public class PrimaryController implements Initializable {
 
     @FXML
     private void onActionButtonEditar(ActionEvent event) {
+    if(pilotoSeleccionado != null) {
+        try {
+            App.setRoot("secondary");
+            SecondaryController secondaryController = (SecondaryController)App.fxmlLoader.getController();
+            secondaryController.setPiloto(pilotoSeleccionado);
+        } catch (IOException ex) {
+            Logger.getLogger(PrimaryController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        }
+    } else {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Atencion");
+        alert.setHeaderText("Debe seleccionar un registro");
+        alert.showAndWait();
+    }
+    }
+
+    @FXML
+    private void onActionButtonBuscar(ActionEvent event) {
+        
+        if(!textFieldBuscar.getText().isEmpty()) {
+            if(checkCoincide.isSelected()) {
+                Query queryPilotoFindAll = App.em.createNamedQuery("Piloto.findByNombre");
+                queryPilotoFindAll.setParameter("nombre", textFieldBuscar.getText());
+                List<Piloto> listPiloto = queryPilotoFindAll.getResultList();
+                tableViewPilotos.setItems(FXCollections.observableArrayList(listPiloto));
+            } else {
+                String strQuery = "SELECT * FROM Piloto WHERE LOWER(nombre) LIKE ";
+                strQuery += "\'%" + textFieldBuscar.getText().toLowerCase() + "%\'";
+                Query queryPilotoFindAll = App.em.createNativeQuery(strQuery, Piloto.class);
+                
+                List<Piloto> listPiloto = queryPilotoFindAll.getResultList();
+                tableViewPilotos.setItems(FXCollections.observableArrayList(listPiloto));
+                
+                Logger.getLogger(this.getClass().getName()).log(Level.INFO, strQuery);
+            }
+        } else {
+            cargarTodosPiloto();
+        }
     }
     
  

@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.javimg.pilotosmotociclismo.SecondaryController">
+<BorderPane fx:id="rootSecondary" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.javimg.pilotosmotociclismo.SecondaryController">
    <center>
       <GridPane prefHeight="444.0" prefWidth="614.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -97,12 +97,12 @@
                </toggleGroup></RadioButton>
             <CheckBox fx:id="checkboxCampeon" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <TextField fx:id="textFieldSalario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="90.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" text="Guardar" GridPane.columnIndex="2" />
-            <Button mnemonicParsing="false" text="Cancelar" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onAction="#onActionButtonGuardar" text="Guardar" GridPane.columnIndex="2" />
+            <Button mnemonicParsing="false" onAction="#onActionButtonCancelar" text="Cancelar" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <ImageView fx:id="imageViewFoto" fitHeight="106.0" fitWidth="111.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="9" />
             <RadioButton fx:id="radioButtonPreciso" mnemonicParsing="false" text="Preciso" toggleGroup="$groupEstilo" translateX="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <Button mnemonicParsing="false" text="Examinar" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-            <Button mnemonicParsing="false" text="Suprimir" translateY="40.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+            <Button mnemonicParsing="false" onAction="#onActionButtonExaminar" text="Examinar" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+            <Button mnemonicParsing="false" onAction="#onActionButtonSuprimir" text="Suprimir" translateY="40.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
             <ComboBox fx:id="comboBoxEquipo" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
