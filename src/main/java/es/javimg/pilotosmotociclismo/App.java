@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -25,6 +24,7 @@ public class App extends Application {
 
     private static Scene scene;
     public static EntityManager em;
+    public static FXMLLoader fxmlLoader;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -42,17 +42,17 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
         
-        Equipo e = new Equipo(01, "Repsol Honda Team");
-        em.getTransaction().begin();
-        em.persist(e);
-        em.getTransaction().commit();
-        
-        Piloto p = new Piloto(01, "Marc", "Marquez");
-        p.setEstiloPilotaje('C');
-        p.setEquipo(e);
-        em.getTransaction().begin();
-        em.persist(p);
-        em.getTransaction().commit();
+//        Equipo e = new Equipo(01, "Repsol Honda Team");
+//        em.getTransaction().begin();
+//        em.persist(e);
+//        em.getTransaction().commit();
+//        
+//        Piloto p = new Piloto(01, "Marc", "Marquez");
+//        p.setEstiloPilotaje('C');
+//        p.setEquipo(e);
+//        em.getTransaction().begin();
+//        em.persist(p);
+//        em.getTransaction().commit();
 
     }
     
@@ -72,7 +72,7 @@ public class App extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
 

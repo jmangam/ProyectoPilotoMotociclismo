@@ -1,9 +1,12 @@
 package es.javimg.pilotosmotociclismo;
 
+import es.javimg.pilotosmotociclismo.entities.Equipo;
 import es.javimg.pilotosmotociclismo.entities.Piloto;
+import java.io.IOException;
 import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
@@ -12,12 +15,15 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
+import javafx.util.StringConverter;
 import javax.persistence.Query;
 
 public class SecondaryController  implements Initializable {
@@ -46,7 +52,7 @@ public class SecondaryController  implements Initializable {
     @FXML
     private TextField textFieldSalario;
     @FXML
-    private ChoiceBox<?> comboBoxEquipo;
+    private ComboBox<Equipo> comboBoxEquipo;
     @FXML
     private RadioButton radioButtonAgresivo;
     @FXML
@@ -61,12 +67,12 @@ public class SecondaryController  implements Initializable {
     }
    
     public void setPiloto(Piloto piloto) {
-    App.em.getTransaction().begin();
-    this.piloto = piloto;
-    mostrarDatos();
+        App.em.getTransaction().begin();
+        this.piloto = piloto;
+        mostrarDatos();
     }
 
-    private void MostrarDatos() {
+    private void mostrarDatos() {
         textfieldNombre.setText(piloto.getNombre());
         textFieldApellidos.setText(piloto.getApellidos());
         textFieldEmail.setText(piloto.getEmail());
@@ -99,19 +105,48 @@ public class SecondaryController  implements Initializable {
             Date date = piloto.getFechaNacimiento();
             Instant instant = date.toInstant();
             ZonedDateTime zdt = instant.atZone(ZoneId.systemDefault());
-            LocalDate localDate = zdt.tolLocalDate();
-            datePickerFechaNacimiento.setValuel(localDate);
+            LocalDate localDate = zdt.toLocalDate();
+            dateNacimiento.setValue(localDate);
         }
 
-Query queryProvinciaFindAll = App.em.createNamedQuery("Provincia.findAl1");
-List<Provincia> listProvincia = queryProvinciaFindAll.getResultList();
+        Query queryEquipoFindAll = App.em.createNamedQuery("Equipo.findAll");
+        List<Equipo> listEquipo = queryEquipoFindAll.getResultList();
+        System.out.println(listEquipo.size());
+        comboBoxEquipo.setItems(FXCollections.observableList(listEquipo));
 
-comboBoxProvincia.setItems(FXCollections.observableList(listProvincia));
-
-if (persona.getProvincia() != null) 4
-comboBoxProvincia.setValue(persona.getProvincia());
+        if (piloto.getEquipo() != null) {
+            comboBoxEquipo.setValue(piloto.getEquipo());
+        }
+        
+        comboBoxEquipo.setCellFactory((ListView<Equipo> l) -> new ListCell<Equipo>() {
+            @Override
+            protected void updateItem(Equipo equipo, boolean empty) {
+                super.updateItem(equipo, empty);
+                if (equipo == null || empty) {
+                    setText("");
+                } else {
+                    setText(equipo.getNombre());
+                }
+            }
+        });  
+        
+        comboBoxEquipo.setConverter(new StringConverter<Equipo>() {
+            @Override
+            public String toString(Equipo provincia) {
+                if (provincia == null) {
+                    return null;
+                } else {
+                    return provincia.getNombre();
+                }
+            }
+            @Override
+            public Equipo fromString(String userId) {
+                return null;
+            }
+        });
+                
     }
-}
+                    
     
     
     

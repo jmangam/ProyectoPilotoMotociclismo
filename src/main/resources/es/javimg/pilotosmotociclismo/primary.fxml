@@ -21,7 +21,7 @@
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Editar">
+            <Button mnemonicParsing="false" onAction="#onActionButtonEditar" text="Editar">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>

@@ -16,12 +16,12 @@
    <top>
       <HBox prefHeight="38.0" prefWidth="590.0" BorderPane.alignment="CENTER">
          <children>
-            <Button alignment="CENTER" mnemonicParsing="false" text="Nuevo">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#onActionButtonNuevo" text="Nuevo">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Editar">
+            <Button mnemonicParsing="false" onAction="#onActionButtonEditar" text="Editar">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>

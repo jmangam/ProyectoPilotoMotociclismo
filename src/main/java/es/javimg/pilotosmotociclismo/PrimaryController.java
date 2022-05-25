@@ -135,11 +135,15 @@ public class PrimaryController implements Initializable {
             App.setRoot("secondary");
             SecondaryController secondaryController = (SecondaryController)App.fxmlLoader.getController();
             pilotoSeleccionado = new Piloto();
-            secondaryController.setPiloto(pilotoSeleccionado, true);
+            secondaryController.setPiloto(pilotoSeleccionado);
         } catch (IOException ex) {
             Logger.getLogger(PrimaryController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             
         }
+    }
+
+    @FXML
+    private void onActionButtonEditar(ActionEvent event) {
     }
     
  
