@@ -56,18 +56,32 @@ public class PrimaryController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         columnApellidos.setCellValueFactory(new PropertyValueFactory<>("apellidos"));
-        columnEstilo.setCellValueFactory(new PropertyValueFactory<>("estiloPilotaje"));
+        //columnEstilo.setCellValueFactory(new PropertyValueFactory<>("estiloPilotaje"));
+        columnEstilo.setCellValueFactory(
+                cellData -> {
+                    SimpleStringProperty property = new SimpleStringProperty();
+                    Piloto piloto = cellData.getValue();
+                    if (piloto.getEstiloPilotaje() == 'P') {
+                        String nombre = piloto.getEquipo().getNombre();
+                        property.setValue("Preciso");
+                    } else if (piloto.getEstiloPilotaje() == 'A'){
+                        String nombre = piloto.getEquipo().getNombre();
+                        property.setValue("Agresivo");
+                    }
+                    return property;
+                });
         columnTitulos.setCellValueFactory(new PropertyValueFactory<>("numTitulos"));
         columnEquipo.setCellValueFactory(
                 cellData -> {
                     SimpleStringProperty property = new SimpleStringProperty();
-                    if (cellData.getValue().getEquipo() != null) {
-                        String nombre = cellData.getValue().getEquipo().getNombre();
+                    Piloto piloto = cellData.getValue();
+                    if (piloto.getEquipo() != null) {
+                        String nombre = piloto.getEquipo().getNombre();
                         property.setValue(nombre);
                     }
                     return property;
                 });
-                tableViewPilotos.getSelectionModel().selectedItemProperty().addListener(
+        tableViewPilotos.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
                     pilotoSeleccionado = newValue;
                     if (pilotoSeleccionado != null){
